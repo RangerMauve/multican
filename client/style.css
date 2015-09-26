@@ -1,6 +1,7 @@
 html, body {
 	margin: 0;
 	padding: 0;
+	overflow: hidden;
 }
 svg {
 	width: 96vmin;
@@ -13,6 +14,8 @@ svg {
 	-ms-user-select: none;
 	user-select: none;
 	cursor: none;
+	-ms-touch-action: none;
+	touch-action: none;
 }
 text {
 	font-family: Helvetica;
