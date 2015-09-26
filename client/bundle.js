@@ -225,8 +225,12 @@ var moves = flyd.stream();
 
 touchEvents.on("move", moves);
 domEvents.on("mousedown", startDrawing);
+domEvents.on("touchstart", startDrawing);
 domEvents.on("mouseup", stopDrawing);
 domEvents.on("mouseleave", stopDrawing);
+domEvents.on("touchend", stopDrawing);
+domEvents.on("touchcancel", stopDrawing);
+domEvents.on("touchleave", stopDrawing);
 
 moves.map(getPosition).map(handleUpdatePosition);
 
