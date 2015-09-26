@@ -25,6 +25,7 @@
     "main-loop": "^3.2.0",
     "mouse-event-offset": "^2.0.0",
     "stream-combiner2": "^1.0.2",
+    "touch-position": "^1.0.3",
     "uid": "0.0.2",
     "virtual-dom": "^2.1.1"
   },
