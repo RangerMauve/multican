@@ -2,7 +2,7 @@
 var mainLoop = require("main-loop");
 var Freezer = require("freezer-js");
 var getBounds = require("bounding-client-rect");
-var getOffset = require("mouse-event-offset");
+var touchPosition = require("touch-position");
 var delegate = require("dom-delegate");
 var flyd = require("flyd");
 var uid = require("uid");
@@ -14,6 +14,9 @@ var maxSegments = constants.maxSegments;
 
 var main = document.querySelector("svg");
 var domEvents = delegate(main);
+var touchEvents = touchPosition.emitter({
+	element: main
+});
 
 var store = new Freezer({
 	segments: [{
@@ -56,21 +59,19 @@ main.appendChild(loop.target);
 
 var moves = flyd.stream();
 
-domEvents.on("mousemove", moves);
+touchEvents.on("move", moves);
 domEvents.on("mousedown", startDrawing);
 domEvents.on("mouseup", stopDrawing);
 domEvents.on("mouseleave", stopDrawing);
 
 moves.map(getPosition).map(handleUpdatePosition);
 
-function getPosition(event) {
+function getPosition() {
+	var position = touchEvents.position;
 	var bounds = main.getBoundingClientRect();
-	var offset = getOffset(event, {
-		clientRect: bounds
-	});
 
-	var x = offset.x / bounds.width * 100;
-	var y = offset.y / bounds.height * 100;
+	var x = position[0] / bounds.width * 100;
+	var y = position[1] / bounds.height * 100;
 
 	return [x, y];
 }
